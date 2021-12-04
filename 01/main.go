@@ -24,6 +24,9 @@ func main() {
 
 	n := countIncreases(ii)
 	fmt.Println("increases:", n)
+
+	n = countWindowedIncreases(ii)
+	fmt.Println("windowed increases:", n)
 }
 
 func errExit(reason string, err error, args ...interface{}) {
@@ -42,6 +45,23 @@ func countIncreases(ii []int) int {
 		if ii[i] > ii[i-1] {
 			n++
 		}
+	}
+	return n
+}
+
+func countWindowedIncreases(ii []int) int {
+	if len(ii) < 4 {
+		return 0
+	}
+
+	lastWindow := ii[0] + ii[1] + ii[2]
+	var n int
+	for i := 3; i < len(ii); i++ {
+		w := lastWindow - ii[i-3] + ii[i]
+		if w > lastWindow {
+			n++
+		}
+		lastWindow = w
 	}
 	return n
 }
