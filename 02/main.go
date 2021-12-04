@@ -11,6 +11,7 @@ import (
 type Submarine struct {
 	horizontal int
 	depth      int
+	aim        int
 }
 
 func (s *Submarine) Move(cmd string) error {
@@ -27,12 +28,13 @@ func (s *Submarine) Move(cmd string) error {
 	switch ww[0] {
 	case "forward":
 		s.horizontal += i
+		s.depth += s.aim * i
 
 	case "down":
-		s.depth += i
+		s.aim += i
 
 	case "up":
-		s.depth -= i
+		s.aim -= i
 	}
 	return nil
 }
